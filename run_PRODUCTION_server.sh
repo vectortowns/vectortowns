@@ -9,7 +9,7 @@ if [[ -n "$NODE_PID" ]]; then
 fi
 
 # Start NodeJS
-ENV=production nodejs server.js &
+NODE_ENV=production nodejs server.js &
 
 # Wait starting NodeJS
 sleep 4s
