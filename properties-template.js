@@ -134,8 +134,8 @@ config.production = {
     defaultLocale: 'en_US', // Default locale
     /* Server data */
     server: {
-        address: preConfig.development.address, // Do not change this
-        port: preConfig.development.port // Do not change this
+        address: preConfig.production.address, // Do not change this
+        port: preConfig.production.port // Do not change this
     },
     /* Log folder and file data */
     log: {
@@ -146,7 +146,7 @@ config.production = {
     googleAuth: {
         clientID: '123andGo.apps.googleusercontent.com', // Client ID of Google - You need to create one if you want to work with this feature
         clientSecret: '123andGo', // Secret of Google - You need to create one if you want to work with this feature
-        callbackURL: 'https://' + preConfig.development.address + '/auth/google/callback' // Do not change this
+        callbackURL: 'https://' + preConfig.production.address + '/auth/google/callback' // Do not change this
     },
     /* Session data */
     session: {
@@ -155,16 +155,16 @@ config.production = {
     },
     /* Redis data - Redis is used to save the NodeJS session */
     redis: {
-        host: preConfig.development.address, // Do not change this
+        host: preConfig.production.address, // Do not change this
         port: 6379 // Do not change this
     },
     /* Static files - Static project files are available from Nginx */
     staticServer: {
-        host: 'http://' + preConfig.development.address // Do not change this
+        host: 'http://' + preConfig.production.address // Do not change this
     },
     /* NodeJS server */
     nodeServer: {
-        host: 'https://' + preConfig.development.address // Do not change this
+        host: 'https://' + preConfig.production.address // Do not change this
     },
     /* MySQL configuration data */
     mysql: {
@@ -193,7 +193,7 @@ config.production = {
             host: 'emailserver.com.br', //  Email administrator IP
             port: 465, // Email administrator PORT
             secure: true, // Do not change this
-            name: preConfig.development.address, // Do not change this
+            name: preConfig.production.address, // Do not change this
             auth: {
                 user: 'no-reply@vectortowns.com', // Email account
                 pass: '123andGo', // Email secret
