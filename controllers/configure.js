@@ -1,4 +1,3 @@
-"use strict";
 const security = require('../libraries/security');
 const express = require('express');
 const router = express.Router();

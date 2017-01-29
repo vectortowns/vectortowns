@@ -1,4 +1,3 @@
-"use strict";
 const i18n = require("i18n");
 const db = require('../libraries/database');
 const Profile = require('./profile').Profile;

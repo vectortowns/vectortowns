@@ -1,4 +1,3 @@
-"use strict";
 const i18n = require("i18n");
 const properties = new require('../properties')();
 const shared = require('../static/js/shared');

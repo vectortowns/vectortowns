@@ -1,4 +1,3 @@
-"use strict";
 const db = require('../libraries/database');
 
 var Profile = function(id,description) {
