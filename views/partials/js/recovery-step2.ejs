@@ -1,0 +1,124 @@
+<script type="text/javascript">
+    "use strict";
+
+    /* Submit form with ENTER click */
+    $('#password').keydown(function(event) {
+        if (event.keyCode == 13) {
+            submitForm();
+            return false;
+         }
+    });
+    $('#confirm-password').keydown(function(event) {
+        if (event.keyCode == 13) {
+            submitForm();
+            return false;
+         }
+    });
+
+    /*************************************************/
+    /*                              SUBMIT                                 */
+    /*************************************************/
+
+    /* Clear global message */
+    function clearGlobalMessage() {
+        $("#validate_submit").css("display", "none");
+        $("#validate_submit_blockquote").html("");
+    };
+
+    /* Check global errors */
+    function containsErrors(validateSubmit) {
+        return (
+            validateSubmit.password.error ||
+            validateSubmit.confirmPassword.error
+        );
+    };
+
+    /* Validate submit locally */
+    function localValidateSubmit(password,confirmPassword,callback) {
+
+        /* Validate result */
+        var validateSubmit = shared.getRecoveryValidateResult();
+
+        /* Validate password */
+        var score = zxcvbn(password).score;
+        if (!shared.validatePassword(score)) {
+            validateSubmit.password.error = true;
+            validateSubmit.password.typed = true;
+            validateSubmit.password.score = score;
+        }
+
+        /* Validate confirm password */
+        validateConfirmPassword(password,confirmPassword,function(typed,error,success){
+            if (error) {
+                validateSubmit.confirmPassword.error = error;
+                validateSubmit.confirmPassword.typed = true;
+            }
+
+            if (containsErrors(validateSubmit)) {
+                validateSubmit.error = true;
+            }
+
+            callback(validateSubmit);
+        });
+
+    };
+
+    /* Show global message */
+    function setupGlobalMessage(validateSubmit) {
+        setupPasswordMessage(
+            validateSubmit.password.typed,
+            validateSubmit.password.score
+        );
+        setupConfirmPasswordMessage(
+            validateSubmit.confirmPassword.typed,
+            validateSubmit.confirmPassword.error
+        );
+
+        if (validateSubmit.error) {
+            $("#validate_submit_blockquote").html("<%= __('app.recovery.step2.submit.validate') %>");
+            $("#validate_submit").css("display", "block");
+        }
+    };
+
+    /* Validate form */
+    $('#submit-button').click(function(){
+        submitForm();
+    });
+
+    function submitForm() {
+        clearGlobalMessage();
+
+        /* Get values */
+        var password = $("#password").val();
+        var confirmPassword = $("#confirm-password").val();
+
+        localValidateSubmit(password,confirmPassword,function(validateSubmit){
+            setupGlobalMessage(validateSubmit);
+
+            /* Continue post */
+            if (!validateSubmit.error) {
+                $('#submit-button').prop('disabled', true).addClass('disabled');
+                $('#recovery').submit();
+            }
+        });
+    };
+
+    /*************************************************/
+    /*                 CLEAR AND RELOAD PAGE                */
+    /*************************************************/
+
+    function init() {
+        <% if (validateSubmit) { %>
+            var validateSubmit = <%- JSON.stringify(validateSubmit) %>;
+            setupGlobalMessage(validateSubmit);
+        <% } else { %>
+            /*  Always clear form */
+            $("#password").val('');
+            $("#confirm-password").val('');
+            clearPasswordMessage();
+            clearGlobalMessage();
+        <% } %>
+    };
+    window.onload = init;
+
+</script>

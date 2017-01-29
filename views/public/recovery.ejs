@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+    <% include ../partials/title %>
+    <% include ../partials/css %>
+</head>
+<body>
+    <% include ../partials/header %>
+
+    <main>
+        <br /><br /><br />
+        <div class="container">
+            <h3>
+                <%= __('app.recovery.title') %>
+            </h3>
+
+            <div class="row">
+
+                <div class="col s12 m12 l12">
+                    <div class="card-panel">
+
+                        <p class="flow-text">
+                            <%= __('app.recovery.subtitle') %>
+                        </p>
+                        <br />
+
+                        <form id="recovery" action="/recovery" method="POST">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+                            <div class="row">
+
+                                <!-- email -->
+                                <div class="input-field col s10 m10 l6">
+                                    <i class="material-icons prefix">email</i>
+                                    <input name="email" id="email" type="email" value="<%= user.email %>">
+                                    <label for="email"><%= __('app.profile.email') %></label>
+                                </div>
+
+                                <div id="email-validation" class="input-field col s2 m2 l6">
+
+                                    <!-- email loading -->
+                                    <div id="email-validation-loading" class="row">
+                                        <div class="input-field col s12 m12 l12">
+                                            <img class="loading" src="<%= staticServer %>/static/img/loading.gif" />
+                                        </div>
+                                    </div>
+
+                                    <!-- email error -->
+                                    <div id="email-validation-error" class="row">
+                                        <div class="input-field col s2 m2 l2">
+                                            <a onclick="toast(emailValidationMessage)">
+                                                <img class="error" src="<%= staticServer %>/static/img/error.png" />
+                                            </a>
+                                        </div>
+                                        <div class="input-field col s10 m10 l10">
+                                            <font id="email-font-error" class="error"></font>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="input-field col s12 m12 l12"></div>
+                                <!-- email -->
+
+                                <!-- Submit button -->
+                                <div class="input-field col s12 m12 l12"></div>
+                                <div class="input-field col s6 m6 l6">
+                                    <button id="submit-button" class="btn waves-effect waves-light red darken-3 right" type="button">
+                                        <i class="material-icons left">send</i>
+                                        <%= __('app.recovery.submit') %>
+                                    </button>
+                                </div>
+                                <div class="input-field col s6 m6 l6"></div>
+                                <!-- Submit button -->
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <% include ../partials/footer %>
+    <% include ../partials/js %>
+    <script type="text/javascript" src="<%= staticServer %>/static/js/shared.js"></script>
+    <% include ../partials/js/recovery %>
+</body>
+</html>

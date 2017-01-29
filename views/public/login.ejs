@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+    <% include ../partials/title %>
+    <% include ../partials/css %>
+</head>
+<body>
+    <% include ../partials/header %>
+
+    <main>
+        <br /><br /><br />
+        <div class="container">
+            <h3><%= __('app.login.title') %>
+                <font style="color: #455a64; font-size: 22px;">
+                    <%= __('app.login.subtitle') %>
+                </font>
+            </h3>
+
+            <div class="row">
+
+                <div class="col s12 m12 l6">
+                    <div class="card-panel">
+                        <h5><%= __('app.login.integrated.title') %></h5>
+                        <p class="flow-text">
+                            <%= __('app.login.integrated.text1') %>
+                        </p>
+                        <a href="/auth/google">
+                            <img src="<%= staticServer %>/static/img/google.png" style="display: block; margin: 0 auto;">
+                        </a>
+                        <br />
+                        <blockquote class="login">
+                            <%= __('app.login.integrated.text2') %>
+                        </blockquote>
+                        <blockquote class="login">
+                            <%= __('app.login.integrated.text3') %>
+                        </blockquote>
+                    </div>
+                </div>
+
+                <div class="col s12 m12 l6">
+                    <div class="card-panel">
+                        <h5><%= __('app.login.local.title') %></h5>
+                        <p class="flow-text"><%= __('app.login.local.text1') %></p>
+
+                        <!-- login error -->
+                        <div id="login-error" class="row">
+                            <div class="input-field col s2 m2 l2">
+                                <a onclick="toast(loginError)">
+                                    <img class="error" src="<%= staticServer %>/static/img/error_login.png" />
+                                </a>
+                            </div>
+                            <div class="input-field col s10 m10 l10">
+                                <font id="login-font-error" class="error"></font>
+                            </div>
+                        </div>
+
+                        <form id="login" action="/login" method="POST">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <div class="row">
+                                <div class="input-field col s12 m12 l12">
+                                    <i class="material-icons prefix">email</i>
+                                    <input id="email" name="email" type="text">
+                                    <label for="email"><%= __('app.login.local.email') %></label>
+                                </div>
+                                <div class="input-field col s12 m12 l12">
+                                    <i class="material-icons prefix">vpn_key</i>
+                                    <input id="password" name="password" type="password">
+                                    <label for="password"><%= __('app.login.local.password') %></label>
+                                </div>
+                            </div>
+                            <button id="submit-button" class="btn waves-effect waves-light red darken-3 right" type="button">
+                                <i class="material-icons left">send</i>
+                                <%= __('app.login.local.submit') %>
+                            </button>
+                        </form>
+
+                        <br />
+                        <br />
+                        <p class="flow-text"><%= __('app.login.local.text3') %></p>
+                        <a class="btn waves-effect waves-light blue-grey lighten-1" href="<%= nodeServer %>/recovery">
+                            <i class="material-icons left">error_outline</i>
+                            <%= __('app.login.local.forgot') %>
+                        </a>
+
+                        <br /><br />
+                        <p class="flow-text"><%= __('app.login.local.text2') %></p>
+                        <a class="btn waves-effect waves-light blue-grey darken-4" href="<%= nodeServer %>/profile">
+                            <i class="material-icons left">person_add</i>
+                            <%= __('app.login.local.new') %>
+                        </a>
+
+                        <br />
+                        <blockquote class="login">
+                            <%= __('app.login.local.text4') %>
+                        </blockquote>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <% include ../partials/footer %>
+    <% include ../partials/js %>
+    <% include ../partials/js/login %>
+</body>
+</html>

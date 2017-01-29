@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+    <% include ../../partials/title %>
+    <% include ../../partials/css %>
+</head>
+<body>
+    <main>
+        <% lines.forEach(function(json) { %>
+            [<font class="log_<%= json.level %>"><%= json.level.toUpperCase() %></font> <%= json.timestamp %>]<%= json.message %><br />
+        <% }); %>
+        <% include ../../partials/js %>
+    </main>
+</body>
+</html>

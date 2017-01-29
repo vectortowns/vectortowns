@@ -1,0 +1,41 @@
+<script type="text/javascript">
+    "use strict";
+
+    /* Terms is checked by default */
+    $('#terms').attr('checked', false);
+
+    /* Show validation message */
+    function setupMessage(checked) {
+        /* Show the appropriate message */
+        if (!checked) {
+            $("#validate_submit").css("display", "block");
+            window.scrollTo(0, 200);
+        }
+    };
+
+    /* Validate form */
+    $('#submit-button').click(function(){
+
+        /* Get value */
+        var checked = false;
+        if ($("#terms").is(":checked")) {
+            checked = true;
+        }
+
+        /* Show error message, if necessary */
+        setupMessage(checked);
+
+        /* Post form */
+        if (checked === true) {
+            $('#submit-button').prop('disabled', true).addClass('disabled');
+            $('#terms_form').submit();
+        }
+
+    });
+
+    <% if (validateSubmit) { %>
+        var unchecked = <%= validateSubmit.error %>;
+        setupMessage(!unchecked);
+    <% } %>
+
+</script>
