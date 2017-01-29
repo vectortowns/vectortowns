@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+    <% include ../partials/title %>
+    <% include ../partials/css %>
+</head>
+<body>
+    <% include ../partials/header %>
+
+    <main>
+        <br /><br /><br />
+        <div class="container">
+            <h3>
+                <%= __('app.profile.title') %>
+            </h3>
+
+            <div class="row">
+
+                <div class="col s12 m12 l12">
+                    <div class="card-panel">
+
+                        <form id="profile" action="/profile" method="POST">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+                            <div class="row">
+
+                                <!-- Global error message -->
+                                <div id="validate_submit" class="input-field col s12 m12 l12">
+                                    <blockquote id="validate_submit_blockquote" class="profile">
+                                    </blockquote>
+                                    <br />
+                                </div>
+                                <!-- Global error message -->
+
+                                <!-- login -->
+                                <div class="input-field col s10 m10 l6">
+                                    <i class="material-icons prefix">account_circle</i>
+                                    <input name="login" id="login" type="text" maxlength="30" value="<%= user.login %>">
+                                    <label for="login"><%= __('app.profile.login') %></label>
+                                </div>
+
+                                <div id="login-validation" class="input-field col s2 m2 l6">
+
+                                    <!-- login loading -->
+                                    <div id="login-validation-loading" class="row">
+                                        <div class="input-field col s12 m12 l12">
+                                            <img class="loading" src="<%= staticServer %>/static/img/loading.gif" />
+                                        </div>
+                                    </div>
+
+                                    <!-- login success -->
+                                    <div id="login-validation-success" class="row">
+                                        <div class="input-field col s2 m2 l2">
+                                            <a onclick="toast(loginValidationMessage)" href="#">
+                                                <img class="success" src="<%= staticServer %>/static/img/success.png" />
+                                            </a>
+                                        </div>
+                                        <div class="input-field col s10 m10 l10">
+                                            <font id="login-font-success" class="success"></font>
+                                        </div>
+                                    </div>
+
+                                    <!-- login error -->
+                                    <div id="login-validation-error" class="row">
+                                        <div class="input-field col s2 m2 l2">
+                                            <a onclick="toast(loginValidationMessage)">
+                                                <img class="error" src="<%= staticServer %>/static/img/error.png" />
+                                            </a>
+                                        </div>
+                                        <div class="input-field col s10 m10 l10">
+                                            <font id="login-font-error" class="error"></font>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="input-field col s12 m12 l12"></div>
+                                <!-- login -->
+
+                                <!-- email -->
+                                <div class="input-field col s10 m10 l6">
+                                    <i class="material-icons prefix">email</i>
+                                    <input name="email" id="email" type="email" value="<%= user.email %>">
+                                    <label for="email"><%= __('app.profile.email') %></label>
+                                </div>
+
+                                <div id="email-validation" class="input-field col s2 m2 l6">
+
+                                    <!-- email loading -->
+                                    <div id="email-validation-loading" class="row">
+                                        <div class="input-field col s12 m12 l12">
+                                            <img class="loading" src="<%= staticServer %>/static/img/loading.gif" />
+                                        </div>
+                                    </div>
+
+                                    <!-- email success -->
+                                    <div id="email-validation-success" class="row">
+                                        <div class="input-field col s2 m2 l2">
+                                            <a onclick="toast(emailValidationMessage)" href="#">
+                                                <img class="success" src="<%= staticServer %>/static/img/success.png" />
+                                            </a>
+                                        </div>
+                                        <div class="input-field col s10 m10 l10">
+                                            <font id="email-font-success" class="success"></font>
+                                        </div>
+                                    </div>
+
+                                    <!-- email error -->
+                                    <div id="email-validation-error" class="row">
+                                        <div class="input-field col s2 m2 l2">
+                                            <a onclick="toast(emailValidationMessage)">
+                                                <img class="error" src="<%= staticServer %>/static/img/error.png" />
+                                            </a>
+                                        </div>
+                                        <div class="input-field col s10 m10 l10">
+                                            <font id="email-font-error" class="error"></font>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="input-field col s12 m12 l12"></div>
+                                <!-- email -->
+
+                                <!-- Password -->
+                                <div class="input-field col s10 m10 l6">
+                                    <i class="material-icons prefix">vpn_key</i>
+                                    <input name="password" id="password" type="password" value="">
+                                    <label for="password"><%= __('app.profile.password') %></label>
+                                </div>
+
+                                <div id="password-validation" class="input-field col s2 m2 l6">
+
+                                    <div id="password-validation-result" class="row">
+                                        <div class="input-field col s2 m2 l2">
+                                            <a onclick="toast(passwordValidationMessage)">
+                                                <img id="password-image" class="lock" src="<%= staticServer %>/static/img/lock_0.png" />
+                                            </a>
+                                        </div>
+                                        <div class="input-field col s10 m10 l10">
+                                            <font id="password-font-result" class="password"></font>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="input-field col s12 m12 l12"></div>
+                                <!-- Password -->
+
+                                <!-- Confirm password -->
+                                <div class="input-field col s10 m10 l6">
+                                    <i class="material-icons prefix">vpn_key</i>
+                                    <input name="confirm-password" id="confirm-password" type="password" value="">
+                                    <label for="confirm-password"><%= __('app.profile.confirm') %></label>
+                                </div>
+
+                                <div id="confirm-validation" class="input-field col s2 m2 l6">
+
+                                    <!-- confirm success -->
+                                    <div id="confirm-validation-success" class="row">
+                                        <div class="input-field col s2 m2 l2">
+                                            <a onclick="toast(confirmValidationMessage)" href="#">
+                                                <img class="success" src="<%= staticServer %>/static/img/success.png" />
+                                            </a>
+                                        </div>
+                                        <div class="input-field col s10 m10 l10">
+                                            <font id="confirm-font-success" class="success"></font>
+                                        </div>
+                                    </div>
+
+                                    <!-- confirm error -->
+                                    <div id="confirm-validation-error" class="row">
+                                        <div class="input-field col s2 m2 l2">
+                                            <a onclick="toast(confirmValidationMessage)">
+                                                <img class="error" src="<%= staticServer %>/static/img/error.png" />
+                                            </a>
+                                        </div>
+                                        <div class="input-field col s10 m10 l10">
+                                            <font id="confirm-font-error" class="error"></font>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- Confirm password -->
+
+                                <!-- Submit button -->
+                                <div class="input-field col s12 m12 l12"></div>
+                                <div class="input-field col s6 m6 l6">
+                                    <button id="submit-button" class="btn waves-effect waves-light red darken-3 right" type="button">
+                                        <i class="material-icons left">send</i>
+                                        <%= __('app.profile.submit') %>
+                                    </button>
+                                </div>
+                                <div class="input-field col s6 m6 l6"></div>
+                                <!-- Submit button -->
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <% include ../partials/footer %>
+    <% include ../partials/js %>
+    <script type="text/javascript" src="<%= staticServer %>/static/js/shared.js"></script>
+    <% include ../partials/js/profile %>
+    <script type="text/javascript" src="<%= staticServer %>/static/js/meter.js"></script>
+    <% include ../partials/js/password %>
+</body>
+</html>

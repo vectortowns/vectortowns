@@ -1,0 +1,71 @@
+<script type="text/javascript">
+    "use strict";
+
+    /* Submit form with ENTER click */
+    $('#email').keydown(function(event) {
+        if (event.keyCode == 13) {
+            submitForm();
+            return false;
+         }
+    });
+    $('#password').keydown(function(event) {
+        if (event.keyCode == 13) {
+            submitForm();
+            return false;
+         }
+    });
+
+    /* Messages to materialize toasts */
+    var loginError = '';
+
+    /* Clear global message */
+    function clearGlobalMessage() {
+        loginError = '';
+        $("#login-error").css("display", "none");
+    };
+
+    /* Show global message */
+    function setupGlobalMessage(validateSubmit) {
+        if (validateSubmit.error) {
+            loginError = validateSubmit.error;
+            $("#login-font-error").html(validateSubmit.error);
+            $("#login-error").css("display", "block");
+        }
+    };
+
+    /* Validate form */
+    $('#submit-button').click(function(){
+        submitForm();
+    });
+
+    function submitForm() {
+        clearGlobalMessage();
+
+        /* Get values */
+        var email = $("#email").val();
+        var password = $("#password").val();
+
+        $('#submit-button').prop('disabled', true).addClass('disabled');
+        $('#login').submit();
+    };
+
+    /*************************************************/
+    /*                 CLEAR AND RELOAD PAGE                */
+    /*************************************************/
+
+    function init() {
+        <% if (validateSubmit) { %>
+            var validateSubmit = <%- JSON.stringify(validateSubmit) %>;
+            setupGlobalMessage(validateSubmit);
+        <% } else { %>
+
+            /*  Always clear form */
+            $("#email").val('');
+            $("#password").val('');
+            clearGlobalMessage();
+
+        <% } %>
+    };
+    window.onload = init;
+
+</script>

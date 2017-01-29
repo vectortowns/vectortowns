@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+    <% include ../partials/title %>
+    <% include ../partials/css %>
+</head>
+<body>
+    <% include ../partials/header %>
+
+    <main>
+        <br /><br />
+        <div class="row green lighten-3" style="margin-bottom: 0px;">
+            <div class="col s12 m2 l2">
+                <h2><i class="material-icons medium left">verified_user</i><%= __('app.200.title') %></h2>
+            </div>
+            <div class="col s12 m10 l10">
+                <h4><%= __('app.200.message') %></h4>
+                <h5><%= message %></h5><br />
+            </div>
+        </div>
+        <!-- Source: https://wallpaperscraft.com/image/underground_railroad_old_11188_2560x1440.jpg -->
+        <img style="margin-top: 0px;" class="responsive-img" src="<%= staticServer %>/static/img/200_min.png">
+    </main>
+
+    <% include ../partials/footer %>
+    <% include ../partials/js %>
+</body>
+</html>

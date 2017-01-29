@@ -1,0 +1,69 @@
+<!-- views/partials/footer.ejs -->
+
+<footer id="site-footer" class="page-footer grey darken-4">
+    <div class="container">
+        <div class="row">
+            <div id="divUserMessage"  class="col l4 s12">
+                <div id="loadingUserMessage">
+                    <img src="<%= staticServer %>/static/img/loading_footer.gif" />
+                </div>
+                <div id="successUserMessage">
+                    <img src="<%= staticServer %>/static/img/success.png" /><br />
+                    <span><%= __('app.footer.userMessage.successMessage') %></span>
+                </div>
+                <div id="errorUserMessage">
+                    <a onclick="toast(userIssueMessage)" href="#">
+                        <img src="<%= staticServer %>/static/img/error_footer.png" /><br />
+                    </a>
+                    <span><%= __('app.footer.userMessage.errorMessage') %></span>
+                </div>
+                <div id="formUserMessage">
+                    <h5 class="white-text"><%= __('app.footer.userMessage.title') %></h5>
+                    <% if (user && user.authenticated) { %>
+                        <p class="grey-text text-lighten-4"><%= __('app.footer.userMessage.text') %></p>
+                        <div class="input-field s12">
+                            <textarea id="userMessage" name="userMessage" class="materialize-textarea"></textarea>
+                            <label for="userMessage"><%= __('app.footer.userMessage.label') %></label>
+                        </div>
+                        <button id="user-message-button" class="btn waves-effect waves-light blue-grey darken-4" type="button">
+                            <i class="material-icons left">email</i>
+                            <%= __('app.footer.userMessage.submit') %>
+                        </button>
+                    <% } else { %>
+                        <p class="grey-text text-lighten-4"><%= __('app.footer.userMessage.longText') %></p>
+                        <p class="center-align"><i class="small material-icons icon-white">lock</i></p>
+                    <% } %>
+                </div>
+            </div>
+            <div class="col l4 s12">
+                <h5 class="white-text"><%= __('app.footer.repository.title') %></h5>
+                <p class="grey-text text-lighten-4"><%= __('app.footer.repository.text') %></p>
+                <a class="btn waves-effect waves-light blue-grey darken-4" target="_blank" href="https://github.com/vectortowns/vectortowns"><i class="material-icons left">extension</i><%= __('app.footer.repository.link') %></a>
+            </div>
+            <div id="wiki-links" class="col l4 s12" style="overflow: hidden;">
+                <h5 class="white-text"><%= __('app.footer.rpg.system.title') %></h5>
+                <!--
+                    Wordpress: https://www.bing.com/images/search?q=wordpress+logo&view=detailv2&qft=+filterui%3aimagesize-custom_512_512&id=099F01DCD818A3221C2A8F9B6EA78CFA89E2FE25&selectedIndex=31&ccid=fHAYZkao&simid=607987694792345251&thid=OIP.M7c70186646a80270fd840b7d8971942fo0&ajaxhist=0
+                    Dice: http://learnersdictionary.com/media/ld/images/legacy_print_images/dice.gif
+                    Book: http://media.istockphoto.com/vectors/old-antique-books-vector-id165763597?k=6&m=165763597&s=170667a&w=0&h=HJJ-i0LcJZ2TUtHAC48PziBevowi-pDDe_ZfEj_SXag=
+                    Skull: https://s-media-cache-ak0.pinimg.com/736x/70/9a/5e/709a5ee717a783b00a4305e8de0986f3.jpg
+                    Sword: http://photos.gograph.com/thumbs/CSP/CSP993/k15158043.jpg
+                    Card: http://www.jugaronline.org/wp-content/uploads/2012/11/black.jpg
+                -->
+                <ul>
+                    <li><a href="https://vectortownsbr.wordpress.com/" target="_blank"><img class="icons" src="<%= staticServer%>/static/img/wordpress_small.png" /></a></li>
+                    <li><a href="https://vectortownsbr.wordpress.com/attributes/" target="_blank"><img class="icons" src="<%= staticServer%>/static/img/attributes_small.png" /></a></li>
+                    <li><a href="https://vectortownsbr.wordpress.com/skills/" target="_blank"><img class="icons" src="<%= staticServer%>/static/img/skills_small.png" /></a></li>
+                    <li><a href="https://vectortownsbr.wordpress.com/races/" target="_blank"><img class="icons" src="<%= staticServer%>/static/img/races_small.png" /></a></li>
+                    <li><a href="https://vectortownsbr.wordpress.com/factions/" target="_blank"><img class="icons" src="<%= staticServer%>/static/img/factions_small.png" /></a></li>
+                    <li><a href="https://vectortownsbr.wordpress.com/cards/" target="_blank"><img class="icons" src="<%= staticServer%>/static/img/cards_small.png" /></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright black" id="site-bottom-footer">
+        <div class="center-align vt-footer">
+            ⚖ <%= __('app.footer.copyright') %>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,279 @@
+<script type="text/javascript">
+    "use strict";
+
+    /* Submit form with ENTER click */
+    $('#login').keydown(function(event) {
+        if (event.keyCode == 13) {
+            submitForm();
+            return false;
+         }
+    });
+    $('#email').keydown(function(event) {
+        if (event.keyCode == 13) {
+            submitForm();
+            return false;
+         }
+    });
+    $('#password').keydown(function(event) {
+        if (event.keyCode == 13) {
+            submitForm();
+            return false;
+         }
+    });
+    $('#confirm-password').keydown(function(event) {
+        if (event.keyCode == 13) {
+            submitForm();
+            return false;
+         }
+    });
+
+    /* Messages to materialize toasts */
+    var loginValidationMessage = '';
+    var emailValidationMessage = '';
+
+
+    /*************************************************/
+    /*                                LOGIN                                 */
+    /*************************************************/
+
+    /* Clear all login fields */
+    function clearLoginMessage() {
+        /* Show loading icon */
+        $("#login-validation-loading").css("display", "block");
+
+        /* Clear all message fields */
+        $("#login-validation-success").css("display", "none");
+        $("#login-validation-error").css("display", "none");
+        loginValidationMessage = '';
+    };
+
+    /* Validate login in server */
+    function serverValidateLogin(login,callback) {
+        $.post("/profile/checkLogin", {login: login}, function(json){
+            var object = json;
+            if (object.error) {
+                callback(object.msg);
+            } else {
+                callback(undefined,object.msg);
+            }
+        });
+    };
+
+    /* Validate login locally */
+    function localValidateLogin(login,callback) {
+        if (login === undefined || login === "") {
+            callback("<%= __('app.profile.login.error.notFound') %>");
+        } else if (!shared.validateSafeParam(login)) {
+            callback("<%= __('app.profile.login.error.char') %>");
+        } else if (!shared.validateLogin(login)) {
+            callback("<%= __('app.profile.login.error.size') %>");
+        } else {
+            callback();
+        }
+    };
+
+    /* Show messages in login validation */
+    function setupLoginMessage(error,success) {
+        /* Clear loading icon */
+        $("#login-validation-loading").css("display", "none");
+
+        /* Show the appropriate message */
+        if (error) {
+            loginValidationMessage = error;
+            $("#login-validation-error").css("display", "block");
+            $("#login-font-error").html(loginValidationMessage);
+        } else if (success) {
+            loginValidationMessage = success;
+            $("#login-validation-success").css("display", "block");
+            $("#login-font-success").html(loginValidationMessage);
+        }
+    };
+
+    /* If login is changed, validate it */
+    $("#login").change(function(){
+        clearLoginMessage();
+        var login = $("#login").val();
+        serverValidateLogin(login,function(error,success){
+            setupLoginMessage(error,success);
+        });
+    });
+
+
+    /*************************************************/
+    /*                                EMAIL                                 */
+    /*************************************************/
+
+    /* Clear all email fields */
+    function clearEmailMessage() {
+        /* Show loading icon */
+        $("#email-validation-loading").css("display", "block");
+
+        /* Clear all message fields */
+        $("#email-validation-success").css("display", "none");
+        $("#email-validation-error").css("display", "none");
+        emailValidationMessage = '';
+    };
+
+    /* Validate email in server */
+    function serverValidateEmail(email,callback) {
+        $.post("/profile/checkEmail", {email: email}, function(json){
+            var object = json;
+            if (object.error) {
+                callback(object.msg);
+            } else {
+                callback(undefined,object.msg);
+            }
+        });
+    };
+
+    /* Show messages in email validation */
+    function setupEmailMessage(error,success) {
+        /* Clear loading icon */
+        $("#email-validation-loading").css("display", "none");
+
+        /* Show the appropriate message */
+        if (error) {
+            emailValidationMessage = error;
+            $("#email-validation-error").css("display", "block");
+            $("#email-font-error").html(emailValidationMessage);
+        } else if (success) {
+            emailValidationMessage = success;
+            $("#email-validation-success").css("display", "block");
+            $("#email-font-success").html(emailValidationMessage);
+        }
+    };
+
+    /* If email is changed, validate it */
+    $("#email").change(function(){
+        clearEmailMessage();
+        var email = $("#email").val();
+        serverValidateEmail(email,function(error,success){
+            setupEmailMessage(error,success);
+        });
+    });
+
+    /*************************************************/
+    /*                              SUBMIT                                 */
+    /*************************************************/
+
+    /* Clear global message */
+    function clearGlobalMessage() {
+        $("#validate_submit").css("display", "none");
+        $("#validate_submit_blockquote").html("");
+    };
+
+    /* Check global errors */
+    function containsErrors(validateSubmit) {
+        return (
+            validateSubmit.login.error ||
+            validateSubmit.email.error ||
+            validateSubmit.password.error ||
+            validateSubmit.confirmPassword.error
+        );
+    };
+
+    /* Validate submit locally */
+    function localValidateSubmit(login,email,password,confirmPassword,callback) {
+
+        /* Validate result */
+        var validateSubmit = shared.getUserValidateResult();
+
+        /* Validate login */
+        localValidateLogin(login,function(error){
+            validateSubmit.login.error = error;
+
+            /* Validate email */
+            if (!shared.validateEmail(email)) {
+                validateSubmit.email.error = "<%= __('app.profile.email.error.invalid') %>";
+            }
+
+            /* Validate password */
+            var score = zxcvbn(password).score;
+            if (!shared.validatePassword(score)) {
+                validateSubmit.password.error = true;
+                validateSubmit.password.typed = true;
+                validateSubmit.password.score = score;
+            }
+
+            /* Validate confirm password */
+            validateConfirmPassword(password,confirmPassword,function(typed,error,success){
+                if (error) {
+                    validateSubmit.confirmPassword.error = error;
+                    validateSubmit.confirmPassword.typed = true;
+                }
+
+                if (containsErrors(validateSubmit)) {
+                    validateSubmit.error = true;
+                }
+
+                callback(validateSubmit);
+            });
+        });
+
+    };
+
+    /* Show global message */
+    function setupGlobalMessage(validateSubmit) {
+        setupLoginMessage(validateSubmit.login.error);
+        setupEmailMessage(validateSubmit.email.error);
+        setupPasswordMessage(
+            validateSubmit.password.typed,
+            validateSubmit.password.score
+        );
+        setupConfirmPasswordMessage(
+            validateSubmit.confirmPassword.typed,
+            validateSubmit.confirmPassword.error
+        );
+
+        if (validateSubmit.error) {
+            $("#validate_submit_blockquote").html("<%= __('app.profile.submit.validate') %>");
+            $("#validate_submit").css("display", "block");
+        }
+    };
+
+    /* Validate form */
+    $('#submit-button').click(function(){
+        submitForm();
+    });
+
+    function submitForm() {
+        clearGlobalMessage();
+
+        /* Get values */
+        var login = $("#login").val();
+        var email = $("#email").val();
+        var password = $("#password").val();
+        var confirmPassword = $("#confirm-password").val();
+
+        localValidateSubmit(login,email,password,confirmPassword,function(validateSubmit){
+            setupGlobalMessage(validateSubmit);
+
+            /* Continue post */
+            if (!validateSubmit.error) {
+                $('#submit-button').prop('disabled', true).addClass('disabled');
+                $('#profile').submit();
+            }
+        });
+    };
+
+    /*************************************************/
+    /*                 CLEAR AND RELOAD PAGE                */
+    /*************************************************/
+
+    function init() {
+        <% if (validateSubmit) { %>
+            var validateSubmit = <%- JSON.stringify(validateSubmit) %>;
+            setupGlobalMessage(validateSubmit);
+        <% } else { %>
+            /*  Always clear form */
+            $("#login").val('');
+            $("#email").val('');
+            $("#password").val('');
+            $("#confirm-password").val('');
+            clearPasswordMessage();
+            clearGlobalMessage();
+        <% } %>
+    };
+    window.onload = init;
+
+</script>

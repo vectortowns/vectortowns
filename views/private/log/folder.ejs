@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+    <% include ../../partials/title %>
+    <% include ../../partials/css %>
+</head>
+<body>
+
+    <main>
+        <%
+            var id = 0;
+            files.forEach(function(file) {
+        %>
+        <a id="file<%= id %>" href="log/<%= file %>"><%= file %></a><br />
+        <%
+            id = id + 1;
+            });
+        %>
+        <% include ../../partials/js %>
+    </main>
+
+</body>
+</html>

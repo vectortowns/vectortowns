@@ -1,0 +1,90 @@
+<script type="text/javascript">
+    "use strict";
+
+    /* Submit form with ENTER click */
+    $('#email').keydown(function(event) {
+        if (event.keyCode == 13) {
+            submitForm();
+            return false;
+         }
+    });
+
+    /* Messages to materialize toasts */
+    var emailValidationMessage = '';
+
+    /*************************************************/
+    /*                                EMAIL                                 */
+    /*************************************************/
+
+    /* Clear all email fields */
+    function clearEmailMessage() {
+        $("#email-validation-loading").css("display", "block");
+        $("#email-validation-error").css("display", "none");
+        emailValidationMessage = '';
+    };
+
+    /* Validate email in server */
+    function serverValidateEmail(email,callback) {
+        $.post("/recovery/checkEmail", {email: email}, function(json){
+            var object = json;
+            if (object.error) {
+                return callback(object.msg);
+            } else {
+                return callback();
+            }
+        });
+    };
+
+    /* Show messages in email validation */
+    function setupEmailMessage(error) {
+        /* Clear loading icon */
+        $("#email-validation-loading").css("display", "none");
+
+        /* Show the appropriate message */
+        if (error) {
+            emailValidationMessage = error;
+            $("#email-validation-error").css("display", "block");
+            $("#email-font-error").html(emailValidationMessage);
+        }
+    };
+
+    /*************************************************/
+    /*                              SUBMIT                                 */
+    /*************************************************/
+
+    /* Validate form */
+    $('#submit-button').click(function(){
+        submitForm();
+    });
+
+    function submitForm() {
+        clearEmailMessage();
+
+        /* Validate email */
+        var email = $("#email").val();
+        serverValidateEmail(email,function(error){
+            if (error) {
+                setupEmailMessage(error);
+                return;
+            } else {
+
+                /* Continue post */
+                $('#submit-button').prop('disabled', true).addClass('disabled');
+                $('#recovery').submit();
+            }
+        });
+    };
+
+    /*************************************************/
+    /*                 CLEAR AND RELOAD PAGE                */
+    /*************************************************/
+
+    function init() {
+        <% if (validateSubmit) { %>
+            var validateSubmit = <%- JSON.stringify(validateSubmit) %>;
+            setupEmailMessage(validateSubmit.error);
+        <% } %>
+    };
+    window.onload = init;
+
+</script>

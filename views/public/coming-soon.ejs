@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+    <% include ../partials/title %>
+    <% include ../partials/css %>
+</head>
+<body>
+    <% include ../partials/header %>
+
+    <main>
+        <section class="first-block">
+            <img class="responsive-img" src="<%= staticServer %>/static/img/coming_soon_min.png">
+            <p id="coming-soon" class="flow-text"><%= __('app.coming.soon.text') %></p>
+        </section>
+        <br /><br />
+    </main>
+
+    <% include ../partials/footer %>
+    <% include ../partials/js %>
+</body>
+</html>
