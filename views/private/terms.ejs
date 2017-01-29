@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+    <% include ../partials/title %>
+    <% include ../partials/css %>
+</head>
+<body>
+    <% include ../partials/header %>
+
+    <main>
+        <br /><br /><br />
+        <div class="container">
+            <h3>
+                <%= __('app.terms.title') %>
+            </h3>
+
+            <div class="row">
+
+                <div class="col s12 m12 l12">
+                    <div class="card-panel">
+
+                        <p class="flow-text">
+                            <%= __('app.terms.subtitle') %>
+                        </p>
+
+                        <form id="terms_form" action="/terms" method="POST">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+                            <div class="row">
+
+                                <!-- Global error message -->
+                                <div id="validate_submit" class="input-field col s12 m12 l12">
+                                    <blockquote class="profile">
+                                        <%= __('app.terms.errorMessage') %>
+                                    </blockquote>
+                                </div>
+                                <!-- Global error message -->
+
+                                <!-- terms -->
+                                <div class="input-field col s12 m12 l12" id="terms-id">
+                                    <input type="checkbox" class="filled-in" name="terms" id="terms" />
+                                    <label for="terms" id="terms-label">
+                                        <%= __('app.terms.checkbox') %>
+                                    </label>
+                                </div>
+                                <!-- terms -->
+
+                                <div class="input-field col s12 m12 l12"></div>
+                                <div class="input-field col s12 m12 l12"></div>
+                                <div class="input-field col s12 m12 l12"></div>
+
+                                <%- include(termsFile) %>
+
+                                <div class="input-field col s12 m12 l12"></div>
+
+                                <!-- Submit button -->
+                                <div class="input-field col s12 m12 l12"></div>
+                                <div class="input-field col s12 m12 l12">
+                                    <button id="submit-button" class="btn waves-effect waves-light red darken-3 right" type="button">
+                                        <i class="material-icons left">send</i>
+                                        <%= __('app.terms.submit') %>
+                                    </button>
+                                </div>
+                                <!-- Submit button -->
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <% include ../partials/footer %>
+    <% include ../partials/js %>
+    <% include ../partials/js/terms %>
+</body>
+</html>

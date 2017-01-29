@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+    <% include ../partials/title %>
+    <% include ../partials/css %>
+</head>
+<body>
+    <% include ../partials/header %>
+
+    <main>
+        <section class="first-block">
+            <img class="responsive-img" src="<%= staticServer %>/static/img/index_game_min.png">
+            <p class="flow-text"><%= __('app.index.first.block.text') %></p>
+            <a class="btn waves-effect waves-light black" href="<%= nodeServer %>/coming-soon">
+                <i class="material-icons left">local_library</i>
+                <%= __('app.index.first.block.button') %>
+            </a>
+        </section>
+
+        <br />
+
+        <div class="container s12 m12 l12">
+
+            <!-- Third block -->
+            <div class="card">
+                <div class="card-image">
+                  <img src="<%= staticServer %>/static/img/third_block.png">
+                  <span class="card-title black"><%= __('app.index.third.block.title') %></span>
+                </div>
+                <div class="card-content">
+                  <p><%= __('app.index.third.block.text') %></p>
+                </div>
+            </div>
+            <!-- Third block -->
+
+            <br />
+
+            <!-- Second block -->
+            <div class="card">
+                <div class="card-image">
+                  <img src="<%= staticServer %>/static/img/second_block.jpg">
+                  <span class="card-title black"><%= __('app.index.second.block.title') %></span>
+                </div>
+                <div class="card-content">
+                  <p><%= __('app.index.second.block.text') %></p>
+                </div>
+            </div>
+            <!-- Second block -->
+
+            <br />
+
+            <!-- Fourth block -->
+            <div class="card">
+                <div class="card-image">
+                  <img src="<%= staticServer %>/static/img/fourth_block.png">
+                  <span class="card-title black"><%= __('app.index.fourth.block.title') %></span>
+                </div>
+                <div class="card-content">
+                  <p><%= __('app.index.fourth.block.text') %></p>
+                </div>
+            </div>
+            <!-- Fourth block -->
+
+            <br />
+            <br />
+
+            <!-- Fifth block -->
+            <!-- Background: https://s-media-cache-ak0.pinimg.com/originals/1b/36/50/1b365026f7fc12e09451fb053710b308.jpg -->
+            <div id="fifth-block" class="card lime lighten-2">
+                <div class="card-content black-text">
+                    <h5><%= __('app.index.fifth.block.title') %></h5><br />
+                    <p><%= __('app.index.fifth.block.text') %></p>
+                </div>
+            </div>
+            <!-- Fifth block -->
+
+            <br />
+            <br />
+
+            <!--
+                Sixth block
+                Source images:
+                    Sun God: http://more-sky.com/WDF-127877.html
+                    Noctis: http://solarlunar.com/wp-content/uploads/2012/10/chandra_moon-sky.jpg
+                    Sievert: https://s-media-cache-ak0.pinimg.com/564x/33/f7/1e/33f71e2534a4085213f7f6a41019f53d.jpg
+                    Viride: https://s-media-cache-ak0.pinimg.com/originals/51/58/e8/5158e8f9285a059a1e2da788e961af4d.jpg
+            -->
+
+            <div class="card">
+                <div class="card-image">
+                  <img src="<%= staticServer %>/static/img/sixth_block.png">
+                </div>
+                <div class="card-content">
+                    <h5><%= __('app.index.sixth.block.title') %></h5>
+                  <p><%= __('app.index.sixth.block.text') %></p>
+                </div>
+            </div>
+            <!-- Sixth block -->
+
+        </div>
+    </main>
+
+    <% include ../partials/footer %>
+    <% include ../partials/js %>
+</body>
+</html>

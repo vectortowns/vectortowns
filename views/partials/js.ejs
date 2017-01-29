@@ -1,0 +1,68 @@
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" src="<%= staticServer %>/static/jquery/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="<%= staticServer %>/static/materialize/js/materialize.min.js"></script>
+<script type="text/javascript" src="<%= staticServer %>/static/js/scripts.js"></script>
+
+<!-- All pages have this script -->
+<script type="text/javascript">
+    "use strict";
+
+    /* User Issue Message */
+    var userIssueMessage = undefined;
+
+    /* Show materialize toast */
+    function toast(msg) {
+        Materialize.toast(msg, <%= materialize.toastTime %>);
+    };
+
+    <% if (user && user.authenticated) { %>
+
+        /* Clear user message */
+        function clearUserMessage() {
+            $("#formUserMessage").css("display", "none");
+            $("#loadingUserMessage").css("display", "block");
+        };
+
+        /* Send message */
+        function serverSendMessage(data,callback) {
+            $.post("/configure/issue", {data: data}, function(json){
+                var error = json.error;
+                if (error) {
+                    return callback(error);
+                } else {
+                    return callback();
+                }
+            });
+        };
+
+        /* Result of user message */
+        function setupResultUserMessage(error) {
+            $("#loadingUserMessage").css("display", "none");
+            if (error) {
+                userIssueMessage = error;
+                console.log(error);
+                $("#errorUserMessage").css("display", "block");
+            } else {
+                $("#successUserMessage").css("display", "block");
+            }
+        };
+
+        /* Validate form */
+        $('#user-message-button').click(function(){
+            clearUserMessage();
+
+            /* Get values */
+            var data = {
+                login: '<%- user.login %>',
+                message: $("#userMessage").val(),
+                url: $(location).attr('pathname')
+            };
+
+            serverSendMessage(data,function(error){
+                setupResultUserMessage(error);
+            });
+        });
+
+    <% } %>
+
+</script>

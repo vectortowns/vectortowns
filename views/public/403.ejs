@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+    <% include ../partials/title %>
+    <% include ../partials/css %>
+</head>
+<body>
+    <% include ../partials/header %>
+
+    <main>
+        <br /><br />
+        <div class="row grey lighten-1" style="margin-bottom: 0px;">
+            <div class="col s12 m2 l2">
+                <h2><i class="material-icons medium left">warning</i><%= __('app.403.title') %></h2>
+            </div>
+            <div class="col s12 m10 l10">
+                <br />
+                <h4><%= __('app.403.message') %></h4>
+            </div>
+        </div>
+        <!-- Source: http://www.desktopwallpapers4.me/nature/desert-15745/ -->
+        <img style="margin-top: 0px;" class="responsive-img" src="<%= staticServer %>/static/img/401_403_min.png">
+    </main>
+
+    <% include ../partials/footer %>
+    <% include ../partials/js %>
+</body>
+</html>

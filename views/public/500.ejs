@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+    <% include ../partials/title %>
+    <% include ../partials/css %>
+</head>
+<body>
+    <% include ../partials/header %>
+
+    <main>
+        <br /><br />
+        <div class="row deep-orange lighten-3" style="margin-bottom: 0px;">
+            <div class="col s12 m2 l2">
+                <h2><i class="material-icons medium left">error</i><%= __('app.500.title') %></h2>
+            </div>
+            <div class="col s12 m10 l10">
+                <h4><%= __('app.500.message') %></h4>
+                <h5><%= error %></h5><br />
+            </div>
+        </div>
+        <!-- Source: http://kingofwallpapers.com/apocalypse-wallpapers/apocalypse-wallpapers-007.jpg -->
+        <img style="margin-top: 0px;" class="responsive-img" src="<%= staticServer %>/static/img/500_min.png">
+    </main>
+
+    <% include ../partials/footer %>
+    <% include ../partials/js %>
+</body>
+</html>
