@@ -1,5 +1,3 @@
-"use strict";
-
 /* Object */
 var Page = function(requiresAuthentication,minimumProfileId) {
     this.requiresAuthentication = requiresAuthentication;

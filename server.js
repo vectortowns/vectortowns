@@ -1,4 +1,3 @@
-"use strict";
 const properties = new require('./properties')();
 const i18n = require("i18n");
 const loggerLibrary = require('./libraries/logger');

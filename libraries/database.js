@@ -1,4 +1,3 @@
-"use strict";
 const properties = new require('../properties')();
 const loggerLibrary = require('./logger');
 const logger = loggerLibrary.logger;

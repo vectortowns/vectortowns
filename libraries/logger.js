@@ -1,4 +1,3 @@
-"use strict";
 const properties = new require('../properties')();
 const moment = require('moment-timezone')
 const winston = require('winston');
