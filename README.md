@@ -141,12 +141,38 @@ Let's install the NodeJS, the npm and configure the project (download the depend
 
 ```
 cd /opt/repositories/github/vectortowns/vectortowns/
-sudo apt-get install nodejs
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+sudo apt-get install -y nodejs
 sudo apt-get install npm
 npm install
 ```
 
 At this point we could already execute the project on NodeJS, however, since the publication of static content and HTTPS is performed by Nginx, we will leave it to start everything at the end of this tutorial.
+
+### Installing Nginx
+
+Finally, let's install Nginx. Through it we will make the SSL proxy for NodeJS and publish all the static content.
+
+```
+cd /opt/repositories/github/vectortowns/vectortowns/
+sudo apt-get install nginx
+sudo chown -R www-data:www-data static/
+sudo chmod 755 static/
+sudo cp doc/nginx/vectortowns.com /etc/nginx/sites-available/
+sudo ln -s /etc/nginx/sites-available/vectortowns.com /etc/nginx/sites-enabled/vectortowns.com
+sudo service nginx start
+```
+
+### Run the project
+
+Now let's run and test the project.
+
+```
+cd /opt/repositories/github/vectortowns/vectortowns/
+./run_DEVELOPMENT_server.sh
+```
+
+Go to [localhost](https://127.0.0.1) and be happy!
 
 
 ## Utility
