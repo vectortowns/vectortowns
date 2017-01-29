@@ -30,6 +30,37 @@
 - Code of artificial intelligence of the game.
 
 
+## Configure and Install
+
+This session will list the steps required to configure the project on your machine. You will need root privileges to complete the procedure. For now there is only the installation procedure on Linux machines. Fork it and contribute procedures to other platforms.
+
+Obviously you only need to perform the steps below if you want to contribute with the project or create a parallel game server. If you just want to play it, go to [vectortowns.com](https://vectortowns.com). The game is online and free :)
+
+### Read before continuing
+
+In this tutorial we are working with a specific directory structure. The commands below show how to set up a similar one.
+
+```
+cd /opt/
+sudo mkdir repositories
+sudo chown ubuntu:ubuntu repositories/
+cd repositories
+mkdir -p github/vectortowns/
+cd github/vectortowns/
+```
+
+This last directory is the main project directory.
+
+### Installing GIT and cloning the project
+
+Some commands below were performed for the owner of the GIT repository. Change them to your user.
+
+```
+cd /opt/repositories/github/vectortowns/
+sudo apt-get install git
+git config --global user.name "vectortowns"
+git config --global user.email dev@vectortowns.com
+```
 
 ## Utility
 
