@@ -38,9 +38,13 @@ Obviously you only need to perform the steps below if you want to contribute wit
 
 ### Read before continuing
 
-In this tutorial we are working with a specific directory structure. The commands below show how to set up a similar one.
+In this tutorial we are working with a specific directory structure. The commands below show how to set up a similar one. Change the group and user name to your settings (here I am using a group and a user named ubuntu).
 
 ```
+cd /var/log/
+sudo mkdir nodejs
+sudo chown ubuntu:ubuntu nodejs/
+mkdir nodejs-project
 cd /opt/
 sudo mkdir repositories
 sudo chown ubuntu:ubuntu repositories/
@@ -60,7 +64,90 @@ cd /opt/repositories/github/vectortowns/
 sudo apt-get install git
 git config --global user.name "vectortowns"
 git config --global user.email dev@vectortowns.com
+git clone https://github.com/vectortowns/vectortowns.git
 ```
+
+The next commands will configure the directory to save the auto-signed certificate and the properties.js file adjusted with your data. Read the contents of properties-template.js for more details.
+
+```
+cd /opt/repositories/github/vectortowns/
+mkdir vectortowns-secret
+cd vectortowns-secret
+cp ../vectortowns/properties-template.js .
+cp properties-template.js properties.js
+openssl genrsa -out vectortowns-key.pem 2048
+openssl req -new -sha256 -key vectortowns-key.pem -out vectortowns-csr.pem
+openssl x509 -req -in vectortowns-csr.pem -signkey vectortowns-key.pem -out vectortowns-cert.pem
+```
+
+Now let's create the auto-signed key.
+
+```
+cd /opt/repositories/github/vectortowns/vectortowns-secret/
+openssl genrsa -out vectortowns-key.pem 2048
+openssl req -new -sha256 -key vectortowns-key.pem -out vectortowns-csr.pem
+openssl x509 -req -in vectortowns-csr.pem -signkey vectortowns-key.pem -out vectortowns-cert.pem
+```
+
+### Installing Redis
+
+Let's use Redis to save nodejs sections.
+
+```
+sudo apt-get install redis-server
+redis-server &
+```
+
+By default, Redis runs at 127.0.0.1:6379. In this tutorial we will keep it that way. Change your settings to /opt/repositories/github/vectortowns/vectortowns-secret/properties.js if necessary.
+
+
+### Installing MySQL
+
+This project uses the MySQL database. You are free to user any bank (and I do not even need to say this, okay). If you choose another, you will need to adjust the database configuration script.
+
+```
+sudo apt-get update
+sudo apt-get install mysql-server
+[Set a very good password for root]
+sudo mysql_secure_installation
+[Please reply as follows: n Y Y Y Y]
+mysql -u root -p
+create database vectortowns CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
+create user 'vtuser'@'localhost' identified by '123andGo';
+grant all on vectortowns.* to 'vtuser'@'localhost' identified by '123andGo';
+exit
+```
+
+Okay, the bank was created. Now let's apply the project database script.
+
+```
+cd /opt/repositories/github/vectortowns/vectortowns/
+./run_create_db.sh
+[Enter the vtuser password]
+```
+
+Okay. If you want to take a test, do the following:
+
+```
+mysql -u vtuser -p
+use vectortowns;
+select * from profile;
+exit
+```
+
+### Installing NodeJS
+
+Let's install the NodeJS, the npm and configure the project (download the dependencies).
+
+```
+cd /opt/repositories/github/vectortowns/vectortowns/
+sudo apt-get install nodejs
+sudo apt-get install npm
+npm install
+```
+
+At this point we could already execute the project on NodeJS, however, since the publication of static content and HTTPS is performed by Nginx, we will leave it to start everything at the end of this tutorial.
+
 
 ## Utility
 
