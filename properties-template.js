@@ -59,12 +59,12 @@ config.development = {
     },
     /* Redis data - Redis is used to save the NodeJS session */
     redis: {
-        host: preConfig.development.address, // Do not change this
+        host: '127.0.0.1', // Do not change this
         port: 6379 // Do not change this
     },
     /* Static files - Static project files are available from Nginx */
     staticServer: {
-        host: 'http://' + preConfig.development.address // Do not change this
+        host: 'https://' + preConfig.development.address // Do not change this
     },
     /* NodeJS server */
     nodeServer: {
@@ -155,12 +155,12 @@ config.production = {
     },
     /* Redis data - Redis is used to save the NodeJS session */
     redis: {
-        host: preConfig.production.address, // Do not change this
+        host: '127.0.0.1', // Do not change this
         port: 6379 // Do not change this
     },
     /* Static files - Static project files are available from Nginx */
     staticServer: {
-        host: 'http://' + preConfig.production.address // Do not change this
+        host: 'https://' + preConfig.production.address // Do not change this
     },
     /* NodeJS server */
     nodeServer: {
