@@ -1,7 +1,5 @@
 # Vectortowns
 
-## Abstract
-
 <a href="https://vectortowns.com"><img src="http://linu.com.br/vectortowns/img/logo-small.png" align="left" hspace="10" vspace="6"></a>
 
 <br>
@@ -30,7 +28,9 @@
 - Code of artificial intelligence of the game.
 
 
-## Configure and Install
+
+
+# Configure and Install
 
 This session will list the steps required to configure the project on your machine. You will need root privileges to complete the procedure. For now there is only the installation procedure on Linux machines. Fork it and contribute procedures to other platforms.
 
@@ -175,7 +175,9 @@ cd /opt/repositories/github/vectortowns/vectortowns/
 Go to [localhost](https://127.0.0.1) and be happy!
 
 
-## Utility
+
+
+# Utility
 
 ### Sublime Text Commands
 ```
