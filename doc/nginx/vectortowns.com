@@ -5,6 +5,24 @@ server {
 	root /opt/repositories/github/vectortowns/vectortowns/static/;
 	index index.html index.htm;
 
+	location / {
+		rewrite ^/(.*) https://127.0.0.1/$1 permanent;
+	}
+
+	error_page 404 =200 https://vectortowns.com/not-found;
+        	error_page 500 502 503 504 =200 https://vectortowns.com/error;
+}
+
+server {
+	listen 443 ssl;
+	server_name 127.0.0.1:443;
+
+	ssl_certificate /opt/repositories/github/vectortowns/vectortowns-secret/auto-signed/vectortowns-cert.pem;
+	ssl_certificate_key /opt/repositories/github/vectortowns/vectortowns-secret/auto-signed/vectortowns-key.pem;
+	ssl_protocols        SSLv3 TLSv1;
+	ssl_ciphers HIGH:!aNULL:!MD5;
+
+
 	#
 	# Wide-open CORS config for nginx
 	#
@@ -38,31 +56,14 @@ server {
 	     alias /opt/repositories/github/vectortowns/vectortowns/static/;
 	}
 
-	error_page 404 =200 https://127.0.0.1/not-found;
-	error_page 500 502 503 504 =200 https://127.0.0.1/error;
-
-	#location / {
-        #        rewrite ^/ https://127.0.0.1 permanent;
-        #}
-
-}
-
-server {
-	listen 443 ssl;
-
-        ssl_certificate /opt/repositories/github/vectortowns/vectortowns-secret/vectortowns-cert.pem;
-        ssl_certificate_key /opt/repositories/github/vectortowns/vectortowns-secret/vectortowns-key.pem;
-        ssl_protocols        SSLv3 TLSv1;
-        ssl_ciphers HIGH:!aNULL:!MD5;
-
-	server_name 127.0.0.1:443;
+	add_header Strict-Transport-Security "max-age=31536000";
 
 	location / {
-        	proxy_pass  http://127.0.0.1:8443;
+        	        proxy_pass  http://127.0.0.1:8443;
 	        proxy_redirect off;
 	        proxy_set_header Host $host ;
 	        proxy_set_header X-Real-IP $remote_addr ;
 	        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for ;
 	        proxy_set_header X-Forwarded-Proto https;
-        }
+        	}
 }
