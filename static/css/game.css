@@ -1,0 +1,59 @@
+section.items {
+}
+
+section.items a.link {
+    display: block;
+    text-align: center;
+    height: 56px;
+    border: 1px solid #bf360c;
+
+    background-color: #ef9a9a; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(left top, #ef9a9a, #ffcdd2); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(bottom right, #ef9a9a, #ffcdd2); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(bottom right, #ef9a9a, #ffcdd2); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to bottom right, #ef9a9a, #ffcdd2); /* Standard syntax */
+}
+
+section.items a.link span {
+    color: #bf360c;
+    text-shadow: 3px 3px 3px rgba(209, 150, 150, 1);
+    font-size: 32px;
+    font-weight: bold;
+    display: block;
+}
+
+section.items a.link span.inv {
+    font-family: CustomFont;
+    padding-top: 4px;
+}
+
+section.items div.title {
+    text-align: left;
+    background-color: #f5f5f5;
+    padding: 0px;
+}
+
+section.items div.title span {
+    display: block;
+    color: black;
+    font-size: 36px;
+    font-family: CustomFont;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+section.items div.hr {
+    background-color: white;
+    padding: 0px;
+}
+
+section.items div.hr hr {
+    padding-top: 0px;
+    margin-top: 0px;
+    height: 10px;
+    border: 0;
+    box-shadow: 0 10px 10px -10px #8c8b8b inset;
+}
+
+@media screen and (max-width: 320px) {
+}

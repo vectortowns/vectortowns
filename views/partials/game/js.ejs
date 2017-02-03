@@ -1,0 +1,14 @@
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" src="<%= staticServer %>/static/jquery/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="<%= staticServer %>/static/materialize/js/materialize.min.js"></script>
+
+<!-- All pages have this script -->
+<script type="text/javascript">
+    "use strict";
+
+    /* Show materialize toast */
+    function toast(msg) {
+        Materialize.toast(msg, <%= materialize.toastTime %>);
+    };
+
+</script>
