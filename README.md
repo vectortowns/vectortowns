@@ -44,6 +44,7 @@ In this tutorial we are working with a specific directory structure. The command
 cd /var/log/
 sudo mkdir nodejs
 sudo chown ubuntu:ubuntu nodejs/
+cd nodejs/
 mkdir nodejs-project
 cd /opt/
 sudo mkdir repositories
@@ -75,9 +76,6 @@ mkdir vectortowns-secret
 cd vectortowns-secret
 cp ../vectortowns/properties-template.js .
 cp properties-template.js properties.js
-openssl genrsa -out vectortowns-key.pem 2048
-openssl req -new -sha256 -key vectortowns-key.pem -out vectortowns-csr.pem
-openssl x509 -req -in vectortowns-csr.pem -signkey vectortowns-key.pem -out vectortowns-cert.pem
 ```
 
 Now let's create the auto-signed key.
@@ -110,7 +108,7 @@ sudo apt-get update
 sudo apt-get install mysql-server
 [Set a very good password for root]
 sudo mysql_secure_installation
-[Please reply as follows: n Y Y Y Y]
+[Please reply as follows: N Y Y Y Y]
 mysql -u root -p
 create database vectortowns CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 create user 'vtuser'@'localhost' identified by '123andGo';
@@ -145,6 +143,12 @@ curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 sudo apt-get install -y nodejs
 sudo apt-get install npm
 npm install
+```
+
+Caution: If there is an error in the installation of npm, check that it has not been installed with nodejs. If so, you do not need to install it. If an error occurs while installing the project packages related to node-gyp, execute the following commands:
+
+```
+sudo apt-get install node-gyp
 ```
 
 At this point we could already execute the project on NodeJS, however, since the publication of static content and HTTPS is performed by Nginx, we will leave it to start everything at the end of this tutorial.
