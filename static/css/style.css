@@ -144,7 +144,6 @@ img.flag {
 
 section.first-block img {
     margin-top: 36px;
-    min-width: 500px;
 }
 
 section.first-block p {
@@ -393,11 +392,11 @@ div.pre-style-terms {
     margin-top: 40px;
   }
   section.first-block p {
-    font-size: 14px;
+    font-size: 13px;
 
     max-width: 90%;
     color: black;
-    top: 190px;
+    top: 140px;
   }
 
   #coming-soon {
@@ -405,12 +404,24 @@ div.pre-style-terms {
   }
 
   section.first-block a {
-    background-size: 250px;
-    background-position: 0 -10px;
+      top: 106px;
 
-    top: 110px;
-    width: 250px;
-    height: 80px;
+      background-size: 200px;
+      background-position: 0 -20px;
+
+      width: 200px;
+      height: 40px;
+
+      font-size: 11px;
+  }
+
+  section.first-block i.material-icons {
+    display: none;
+  }
+
+  .card .card-image .card-title {
+    font-size: 14px;
+    padding: 6px;
   }
 
   font.success {
