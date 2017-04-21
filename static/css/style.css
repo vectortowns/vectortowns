@@ -144,6 +144,7 @@ img.flag {
 
 section.first-block img {
     margin-top: 36px;
+    min-width: 340px;
 }
 
 section.first-block p {
@@ -392,27 +393,15 @@ div.pre-style-terms {
     margin-top: 40px;
   }
   section.first-block p {
-    font-size: 13px;
+    font-size: 14px;
 
     max-width: 90%;
     color: black;
-    top: 140px;
+    top: 200px;
   }
 
   #coming-soon {
     font-size: 24px;
-  }
-
-  section.first-block a {
-      top: 106px;
-
-      background-size: 200px;
-      background-position: 0 -20px;
-
-      width: 200px;
-      height: 40px;
-
-      font-size: 11px;
   }
 
   section.first-block i.material-icons {
@@ -435,5 +424,55 @@ div.pre-style-terms {
   }
   font.password {
     display: none;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  section.first-block img {
+    margin-top: 40px;
+  }
+  section.first-block p {
+    font-size: 13px;
+
+    max-width: 90%;
+    color: black;
+    top: 150px;
+  }
+
+  section.first-block a {
+      top: 116px;
+
+      background-size: 200px;
+      background-position: 0 -20px;
+
+      width: 200px;
+      height: 40px;
+
+      font-size: 11px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  section.first-block img {
+    margin-top: 40px;
+  }
+  section.first-block p {
+    font-size: 12px;
+
+    max-width: 90%;
+    color: black;
+    top: 136px;
+  }
+
+  section.first-block a {
+      top: 106px;
+
+      background-size: 200px;
+      background-position: 0 -20px;
+
+      width: 200px;
+      height: 40px;
+
+      font-size: 11px;
   }
 }
