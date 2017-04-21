@@ -6,6 +6,8 @@ const utils = require('../../libraries/utils');
 
 router.get('/:locale/:type', function(req, res, next){
 
+    // In construction... do not show for while...
+
     //console.log(req.params.locale);
     //console.log(req.params.type);
 
