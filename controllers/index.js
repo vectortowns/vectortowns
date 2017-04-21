@@ -40,7 +40,6 @@ router.use('/recovery', require('./recovery'));
 router.use('/log', require('./logger'));
 router.use('/configure', require('./configure'));
 router.use('/terms', require('./terms'));
-router.use('/game/items', require('./game/items'));
 
 /* GET /auth/google */
 router.get('/auth/google', passport.authenticate('google', { scope: [
